@@ -1,4 +1,3 @@
-//TODO Zamezit davat velke pismena do stringu(multiplayer)
 #pragma comment(lib, "winmm.lib")//hudba
 
 #include <stdlib.h>
@@ -13,11 +12,12 @@ char slovo[30] = { 0 };
 void singleplayer(void);
 void multiplayer(void);
 void otevreni_obrazku(int cislo);
+void nacteni_slova(void);
 
 int main() {
 
 	int volba, reset;
-	//PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP);//hudba
+	PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP);
 	printf("1. Hra pro jednoho hrace(fungujou pouze anglicka slova)\n");
 	printf("2. Hra pro vice hracu (jeden urci slovo druhy hada)\n");
 	do {
@@ -26,6 +26,7 @@ int main() {
 		case 1:
 			reset = 1;
 			system("cls");
+			singleplayer();
 			break;
 		case 2:
 			reset = 1;
@@ -44,10 +45,15 @@ int main() {
 	return 0;
 	}
 
+void singleplayer() {
+	nacteni_slova();
+}
+
 void multiplayer() {
 	char uhadnuti[60] = { 0 },pismeno, kontrola[60] = { 0 };
-	int i, x = 0, spatne = 0,zbyvajici=0, delka;
-	bool uhadnuto,unikatni;
+	int i, x = 0, spatne = 0,zbyvajici=0, delka, obrazek=0,smrt=0;
+	bool uhadnuto, unikatni;
+	printf("Doporucuji dat aplikaci na celou obrazovku\n\n");
 	printf("Zadejte slovo (maximalne 30 znaku)\n");
 	fflush(stdout);
 	scanf("%s", slovo);
@@ -65,14 +71,14 @@ void multiplayer() {
 	}
 
 	for (i = 0; i < delka; i++) {
-		uhadnuti[i] = '*';
+		uhadnuti[i] = '_';
 	}
 	puts(uhadnuti);
-	printf("Zadejte pismeno\n");
 	do {
 		uhadnuto = false;
 		do {
 			unikatni = true;
+			printf("Zadejte pismeno\n");
 			scanf(" %c", &pismeno);
 			for (i = 0; i < delka; i++) {
 				if (uhadnuti[i] == pismeno) {
@@ -82,23 +88,72 @@ void multiplayer() {
 			}
 		} while (!unikatni);
 
+		spatne=0;
+		
+		for	(i=0; i < delka; i++){
+			if(pismeno == slovo[i]){
+			}
+			else{
+				spatne++;
+			}
+		}
+		
+		for (i = 0; i < delka; i++) {
+			if (slovo[i] == pismeno) {
+					uhadnuti[i] = slovo[i];
+			}
+		}
+		
 		for (i = 0; i < delka; i++) {
 			if (uhadnuti[i] == kontrola[i]) {
 				kontrola[i] = 'x';
 				zbyvajici--;
 			}
 			if (zbyvajici == 0)uhadnuto = true;
+		}		
+		system("cls");
+
+		if (spatne == delka) {
+			obrazek++;
+			otevreni_obrazku(obrazek);
+		}
+		else {
+			otevreni_obrazku(obrazek);
 		}
 
-		for (i = 0; i < delka; i++) {
-			if (slovo[i] == pismeno) {
-					uhadnuti[i] = slovo[i];
-			}
+		if (obrazek == 7) {
+			uhadnuto = true;
+			smrt = 1;
 		}
-		printf("%s", uhadnuti);
+
+		printf("%s\n", uhadnuti);
+		
 	} while (!uhadnuto);
 	system("cls");
-	printf("Slovo bylo uhadnuto!");
+	if (smrt == 1) {
+		printf("Dosli ti pokusy :(\n");
+		printf("Hadane slovo bylo %s\n", slovo);
+	}
+	else {
+		printf("Slovo bylo uhadnuto !");
+	}
+	
+}
+
+void nacteni_slova() {
+	FILE* file;
+	char slovo[5];
+	int radek1,radek2;
+	file = fopen("slova.txt", "r");
+	if (file == NULL) {
+		printf("Soubor nelze otevrit");
+	}
+	while (fgets(slovo, 5, file))
+		if (radek1 == radek2) {
+			printf("%s", slovo);
+		}
+		
+	fclose(file);
 }
 
 void otevreni_obrazku(int cislo) {
@@ -111,6 +166,7 @@ void otevreni_obrazku(int cislo) {
 	if (file) {
 		while ((c = getc(file)) != EOF)
 			putchar(c);
+		printf("\n\n\n");
 		fclose(file);
 	}
 }
