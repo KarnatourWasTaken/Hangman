@@ -19,11 +19,13 @@ int main() {
 
 	int volba, reset;
 	srand(time(NULL));
-	PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP);
-	printf("Doporucuji dat aplikaci na celou obrazovku\n\n");
+	PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP | SND_SYSTEM);
+	printf("Doporucuji dat aplikaci na celou obrazovku\n");
+	printf("Hlasitost hudby se urcuje podle hlasitosti systemovych zvuku\n");
+	printf("Zdrojovy kod lze najit na: https://github.com/KarnatourWasTaken/Hangman\n\n\n");
 	printf("1. Hra pro jednoho hrace(fungujou pouze anglicka slova)\n");
 	printf("2. Hra pro vice hracu (jeden urci slovo druhy hada)\n");
-	printf("\n\n\nZdrojovy kod lze najit na: https://github.com/KarnatourWasTaken/Hangman");
+	
 	do {
 		scanf("%d", &volba);
 		switch (volba) {
