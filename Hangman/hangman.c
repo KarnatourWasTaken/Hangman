@@ -19,7 +19,7 @@ int main() {
 
 	int volba, reset;
 	srand(time(NULL));
-	//PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP);
+	PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP);
 	printf("Doporucuji dat aplikaci na celou obrazovku\n\n");
 	printf("1. Hra pro jednoho hrace(fungujou pouze anglicka slova)\n");
 	printf("2. Hra pro vice hracu (jeden urci slovo druhy hada)\n");
