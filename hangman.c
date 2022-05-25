@@ -143,7 +143,7 @@ void multiplayer() {
 	delka = strlen(slovo);
 	zbyvajici = delka;
 	
-	//Pokud uÅ¾ivatel zadÃ¡ velkÃ¡ pÃ­smena pÃ¸evedou se na malÃ©
+	//Pokud uivatel zadá velká písmena pøevedou se na malé
 	for (i = 0; i < delka; i++) { 
 		slovo[i] = tolower(slovo[i]);
 	}
