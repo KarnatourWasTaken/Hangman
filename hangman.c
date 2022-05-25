@@ -19,7 +19,7 @@ int main() {
 
 	int volba, reset;
 	srand(time(NULL));
-	//PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP | SND_SYSTEM);
+	PlaySound(TEXT("hudba.wav"),NULL, SND_ASYNC | SND_LOOP | SND_SYSTEM);
 	printf("Doporucuji dat aplikaci na celou obrazovku\n");
 	printf("Hlasitost hudby se urcuje podle hlasitosti systemovych zvuku\n");
 	printf("Zdrojovy kod lze najit na: https://github.com/KarnatourWasTaken/Hangman\n\n\n");
@@ -143,7 +143,7 @@ void multiplayer() {
 	delka = strlen(slovo);
 	zbyvajici = delka;
 	
-	//Pokud uûivatel zad· velk· pÌsmena p¯evedou se na malÈ
+	//Pokud u≈æivatel zad√° velk√° p√≠smena p√∏evedou se na mal√©
 	for (i = 0; i < delka; i++) { 
 		slovo[i] = tolower(slovo[i]);
 	}
